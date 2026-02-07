@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>A Little Page for Someone Cute ❤️</title>
+  <style>
+    :root{
+      --bg:#85d6f4;
+      --card:#ffffff;
+      --accent:#58a6f8;
+      --muted:#8a8a8a;
+      --shadow: 0 8px 30px rgba(17,17,17,0.06);
+      --glass: rgba(255,255,255,0.6);
+      --radius:18px;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{
+      background: radial-gradient(1200px 400px at 10% 10%, rgba(255,220,235,0.35), transparent),
+                  radial-gradient(900px 350px at 90% 90%, rgba(200,235,255,0.25), transparent),
+                  var(--bg);
+      display:flex;align-items:center;justify-content:center;
+      padding:40px;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    .page{
+      width:100%;max-width:980px;background:linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.95));
+      border-radius:24px;box-shadow:var(--shadow);padding:34px;display:grid;grid-template-columns:320px 1fr;gap:28px;align-items:center;
+    }
+
+    /* Left card */
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.9), var(--card));
+      border-radius:var(--radius);padding:26px;text-align:center;position:relative;overflow:visible;
+    }
+
+    .avatar{
+      width:140px;height:140px;border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,#fff6fb,#fff8f5);box-shadow:0 8px 20px rgba(255,140,177,0.12), inset 0 -6px 12px rgba(255,255,255,0.6);
+      border:6px solid rgba(255,255,255,0.6);
+    }
+
+    .avatar svg{width:86px;height:86px}
+    h1{font-size:20px;margin:8px 0 6px;color:#333}
+    .subtitle{color:var(--muted);font-size:13px;margin-bottom:12px}
+
+    .badges{display:flex;gap:8px;justify-content:center;margin:14px 0}
+    .badge{background:linear-gradient(90deg,rgba(255,143,177,0.12),rgba(255,243,230,0.08));padding:8px 12px;border-radius:999px;font-size:13px;color:#c23b6f;border:1px solid rgba(194,59,111,0.06)}
+
+    .heart-btn{margin-top:8px;background:linear-gradient(90deg,#ffb3c9,#ff86ac);border:none;padding:10px 16px;border-radius:12px;color:white;font-weight:600;cursor:pointer;box-shadow:0 8px 18px rgba(255,139,153,0.18)}
+    .heart-btn:active{transform:translateY(1px)}
+
+    /* Right content */
+    .content{padding:12px 6px}
+    .greeting{display:flex;align-items:center;gap:14px}
+    .greeting h2{margin:0;font-size:26px}
+    .pill{background:var(--glass);padding:8px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.6);font-size:13px}
+
+    .message-box{margin-top:18px;background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.97));padding:18px;border-radius:14px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.6)}
+    .message{font-size:15px;color:#444;line-height:1.5}
+
+    .actions{display:flex;gap:12px;margin-top:18px}
+    .btn{background:white;border:1px solid rgba(17,17,17,0.06);padding:10px 14px;border-radius:12px;font-weight:600;cursor:pointer}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),#ff5fa0);color:white;border:none}
+
+    /* Floating hearts animation */
+    .hearts{position:absolute;left:10px;top:-24px;pointer-events:none}
+    .heart{position:absolute;opacity:0;transform:translateY(0) scale(0.8);animation:rise 3500ms linear forwards}
+    @keyframes rise{
+      0%{opacity:0;transform:translateY(0) scale(0.6)}
+      10%{opacity:1}
+      100%{opacity:0;transform:translateY(-260px) scale(1.15)}
+    }
+
+    /* Responsive */
+    @media (max-width:820px){
+      .page{grid-template-columns:1fr;}
+      .card{order:2}
+      .content{order:1}
+    }
+
+    footer{margin-top:18px;font-size:12px;color:var(--muted);text-align:center}
+
+    /* Cute confetti (simple) */
+    .confetti-piece{position:fixed;left:50%;top:0;width:10px;height:14px;border-radius:2px;transform:translateX(-50%);animation:fall 1100ms linear forwards;opacity:0}
+    @keyframes fall{0%{opacity:1;transform:translate(-50%, -10px) rotate(0)}100%{opacity:0;transform:translate(-50%, 700px) rotate(360deg)}}
+  </style>
+</head>
+<body>
+  <div class="page" role="main" aria-labelledby="title">
+    <div class="card" aria-hidden="false">
+      <div class="hearts" id="hearts"></div>
+      <div class="avatar" aria-hidden="true">
+        <!-- Cute placeholder avatar (SVG) -->
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="#ffdce6" />
+              <stop offset="1" stop-color="#ffc7dd" />
+            </linearGradient>
+          </defs>
+          <circle cx="60" cy="60" r="56" fill="url(#g1)" stroke="#fff" stroke-width="2"/>
+          <g transform="translate(15, 20)" fill="#6b2a46">
+            <ellipse cx="20" cy="28" rx="6" ry="8" fill="#40202a" opacity="0.95"/>
+            <ellipse cx="60" cy="28" rx="6" ry="8" fill="#40202a" opacity="0.95"/>
+            <path d="M18 52 Q40 72 62 52" stroke="#40202a" stroke-width="3" fill="none" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </div>
+      <h1 id="title">For <span id="favName">Saghuu You look beautiful today</span> ✨</h1>
+      <div class="subtitle">Be Happy Medam</div>
+
+      <div class="badges">
+        <div class="badge">innocent</div>
+        <div class="badge">Tube Light</div>
+        <div class="badge">pavam</div>
+      </div>
+
+      <button class="heart-btn" id="loveBtn" aria-pressed="false">Send a Heart ❤️</button>
+
+      <div style="margin-top:16px;font-size:13px;color:var(--muted)">Click the heart to send floating hearts and a confetti shower.</div>
+    </div>
+
+    <div class="content">
+      <div class="greeting">
+        <h2 id="headline">Hey <span id="nameInHeadline">There!</span> — You're Wonderful</h2>
+        <div class="pill" id="mood">Feeling loved</div>
+      </div>
+
+      <div class="message-box">
+        <div class="message" id="messageText">This little page is a gentle reminder that someone thinks the world of you. <strong>eppo parayum yes??????</strong>.</div>
+
+        <div class="actions">
+          <button class="btn" id="customize">Customize</button>
+          <button class="btn btn-primary" id="sendMsg">Write a Message</button>
+        </div>
+      </div>
+
+      <footer>Made with care · sprinkle of pixels · open-source vibes</footer>
+    </div>
+  </div>
+
+  <script>
+    // Helpers
+    function rand(min,max){return Math.random()*(max-min)+min}
+
+    // Floating hearts emitter
+    const hearts = document.getElementById('hearts');
+    function popHeart(){
+      const h = document.createElement('div');
+      h.className = 'heart';
+      const size = Math.floor(rand(12,36));
+      h.style.left = Math.floor(rand(-10,120)) + 'px';
+      h.style.top = Math.floor(rand(6,26)) + 'px';
+      h.style.width = size + 'px';
+      h.style.height = size + 'px';
+      h.style.filter = 'drop-shadow(0 6px 12px rgba(255,120,150,0.12))';
+      h.innerHTML = `
+        <svg viewBox="0 0 24 24" width="${size}" height="${size}" aria-hidden="true">
+          <path d="M12 21s-6.716-4.78-9.08-7.13c-1.75-1.665-1.828-4.3-.196-6.03C5.12 4.16 7.8 4 9.32 6.11 11 8.4 12 10 12 10s1-1.6 2.68-3.89C16.2 4 18.88 4.16 21.276 7.84c1.632 1.73 1.554 4.366-.195 6.03C18.716 16.22 12 21 12 21z" fill="#ff6fa3"/>
+        </svg>`;
+      hearts.appendChild(h);
+      setTimeout(()=>{h.remove()}, 3600);
+    }
+
+    // Confetti shower
+    function confettiBurst(count=18){
+      for(let i=0;i<count;i++){
+        const c = document.createElement('div');
+        c.className = 'confetti-piece';
+        c.style.left = (50 + rand(-35,35)) + '%';
+        c.style.background = ['#ff86ac','#ffd27a','#a1e3ff','#bcd7ff','#c8ffa3'][Math.floor(rand(0,5))];
+        c.style.width = Math.floor(rand(6,12)) + 'px';
+        c.style.height = Math.floor(rand(8,16)) + 'px';
+        c.style.animationDuration = Math.floor(rand(900,1600)) + 'ms';
+        document.body.appendChild(c);
+        setTimeout(()=>c.remove(), 1600);
+      }
+    }
+
+    // Button actions
+    const loveBtn = document.getElementById('loveBtn');
+    loveBtn.addEventListener('click', ()=>{
+      loveBtn.animate([{transform:'scale(1)'},{transform:'scale(0.96)'},{transform:'scale(1)'}],{duration:220});
+
+      // emit a small burst of hearts
+      for(let i=0;i<6;i++){setTimeout(popHeart, i*120)}
+      // confetti
+      confettiBurst(22);
+
+      // accessibility
+      const pressed = loveBtn.getAttribute('aria-pressed') === 'true';
+      loveBtn.setAttribute('aria-pressed', String(!pressed));
+    });
+
+    // Customize quick form
+    document.getElementById('customize').addEventListener('click', ()=>{
+      const newName = prompt('Enter the name to show on the page (leave empty to cancel):','Your Favorite Person');
+      if(newName !== null && newName.trim() !== ''){
+        document.getElementById('favName').textContent = newName;
+        document.getElementById('nameInHeadline').textContent = newName.split(' ')[0];
+        document.getElementById('messageText').textContent = `Hi ${newName}! This little note is just to say — you make a difference.`;
+      }
+
+      const color = prompt('Pick an accent color hex (example: #ff8fb1) or leave blank to keep:','');
+      if(color && /^#([0-9A-Fa-f]{3}){1,2}$/.test(color)){
+        document.documentElement.style.setProperty('--accent', color);
+      }
+    });
+
+    // Write message (simple modal via prompt)
+    document.getElementById('sendMsg').addEventListener('click', ()=>{
+      const msg = prompt('Write your message to send (this will show as a temporary popup).','You are amazing!');
+      if(msg){
+        // show temporary message bubble
+        const bubble = document.createElement('div');
+        bubble.style.position='fixed';bubble.style.right='24px';bubble.style.bottom='24px';bubble.style.background='linear-gradient(90deg,#fff,#fffaf3)';bubble.style.padding='14px 16px';bubble.style.borderRadius='14px';bubble.style.boxShadow='0 10px 30px rgba(17,17,17,0.08)';bubble.style.zIndex=9999;fontWeight=600;
+        bubble.textContent = msg;
+        document.body.appendChild(bubble);
+        setTimeout(()=>{
+          bubble.animate([{opacity:1, transform:'translateY(0)'},{opacity:0, transform:'translateY(30px)'}],{duration:900});
+          setTimeout(()=>bubble.remove(),900);
+        },2400);
+        // also small confetti
+        confettiBurst(12);
+      }
+    });
+
+    // Small playful intro when page loads
+    window.addEventListener('load', ()=>{
+      setTimeout(()=>{
+        for(let i=0;i<10;i++){setTimeout(popHeart, i*180)}
+        setTimeout(()=>confettiBurst(10), 700);
+      },600);
+    });
+  </script>
+</body>
+</html>
